@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -46,14 +47,26 @@ const Admin = () => {
     "Hip Hop", "Reggae", "Blues", "Jazz", "Eletrônica", "Country"
   ];
 
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    import('@/lib/auth').then(({ logoutAdmin }) => {
+      logoutAdmin();
+      navigate('/admin/login');
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-subtle p-4">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
-            Painel Administrativo
-          </h1>
-          <p className="text-muted-foreground">Gerencie o acervo musical e configurações do jogo</p>
+        <div className="mb-8 flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
+              Painel Administrativo
+            </h1>
+            <p className="text-muted-foreground">Gerencie o acervo musical e configurações do jogo</p>
+          </div>
+          <Button variant="outline" onClick={handleLogout}>Sair</Button>
         </div>
 
         <Tabs defaultValue="tracks" className="space-y-6">
