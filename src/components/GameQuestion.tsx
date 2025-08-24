@@ -3,6 +3,7 @@ import { QuizCard } from "@/components/QuizCard";
 import { Avatar } from "@/components/Avatar";
 import { Round, Player, GameSettings } from "@/types/quiz";
 import { Clock, Music } from "lucide-react";
+import { YouTubeClipPlayer } from "@/components/YouTubeClipPlayer";
 import { cn } from "@/lib/utils";
 
 interface GameQuestionProps {
@@ -85,18 +86,29 @@ export function GameQuestion({
         {/* Track Info */}
         <QuizCard className="mb-6">
           <div className="p-6 text-center">
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <Music className="w-6 h-6 text-primary" />
-              <div>
-                <h3 className="text-xl font-bold">{round.track.title}</h3>
-                <p className="text-muted-foreground">{round.track.artist}</p>
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex items-center justify-center gap-3">
+                <Music className="w-6 h-6 text-primary" />
+                <div>
+                  <h3 className="text-xl font-bold">{round.track.title}</h3>
+                  <p className="text-muted-foreground">{round.track.artist}</p>
+                </div>
               </div>
+
+              {round.track.youtubeId && (
+                <YouTubeClipPlayer
+                  youtubeId={round.track.youtubeId}
+                  playing={isClipPlaying}
+                  clipDurationSec={settings.clipTimeSec}
+                />
+              )}
+
+              {isClipPlaying && (
+                <div className="text-sm text-accent">
+                  🎵 Tocando agora... ({settings.clipTimeSec - (settings.questionTimeSec - timeLeft)}s)
+                </div>
+              )}
             </div>
-            {isClipPlaying && (
-              <div className="text-sm text-accent">
-                🎵 Tocando agora... ({settings.clipTimeSec - (settings.questionTimeSec - timeLeft)}s)
-              </div>
-            )}
           </div>
         </QuizCard>
 
