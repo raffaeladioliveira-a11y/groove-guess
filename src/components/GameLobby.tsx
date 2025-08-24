@@ -130,15 +130,15 @@ export function GameLobby({ room, currentUser, onStartGame }: GameLobbyProps) {
               onClick={onStartGame}
               variant="musical"
               size="hero"
-              disabled={room.players.length < 2}
+              disabled={room.players.length < 1}
               className="animate-music-pulse"
             >
               <Play className="w-6 h-6 mr-2" />
               Iniciar Jogo
             </Button>
-            {room.players.length < 2 && (
+            {room.players.length < 1 && (
               <p className="text-muted-foreground text-sm mt-2">
-                Aguarde pelo menos 2 jogadores para começar
+                Aguarde pelo menos 1 jogador para começar
               </p>
             )}
           </div>
